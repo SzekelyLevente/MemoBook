@@ -31,4 +31,4 @@ On the main page, the entries we have created are displayed, and we have the opt
 <img src="images/update.png" width="50%">
 
 ## Try live
-Click [https://memobook20250518150207-gggdeaehh7a4e3b2.germanywestcentral-01.azurewebsites.net/](this) link to try live the application.
+Click [this](https://memobook20250518150207-gggdeaehh7a4e3b2.germanywestcentral-01.azurewebsites.net/) link to try live the application.
