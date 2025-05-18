@@ -85,19 +85,23 @@ module Site =
             let user=Client.getUser(int(userid.Value))
             let welcomeText="Welcome "+user.name
             let registries=Client.getRegistryParams(System.DateTime.MinValue,user.id,"")
-            let registriesDoc = Doc.Concat (registries |> List.map(fun item ->
-                div [attr.``class`` "row"] [
-                    div [attr.``class`` "col-sm-12 rounded mt-2 mb-2 pt-2 pb-2 bg-secondary"] [
-                        h3 [] [text (item.date.ToString("yyyy-MM-dd"))]
-                        p [] [text item.text]
-                        form [attr.method "POST"] [
-                            input [attr.``type`` "hidden" ; attr.value (item.id.ToString()) ; attr.name "id"] []
-                            button [attr.``type`` "submit" ; attr.``class`` "btn btn-danger" ; attr.name "delReg"] [text "delete"]
-                            a [attr.href ("/update?id="+item.id.ToString()) ; attr.``class`` "btn btn-success"] [text "update"]
+            let registriesDoc = 
+                if registries.Length <> 0 then
+                    Doc.Concat (registries |> List.map(fun item ->
+                    div [attr.``class`` "row"] [
+                        div [attr.``class`` "col-sm-12 rounded mt-2 mb-2 pt-2 pb-2 bg-secondary"] [
+                            h3 [] [text (item.date.ToString("yyyy-MM-dd"))]
+                            p [] [text item.text]
+                            form [attr.method "POST"] [
+                                input [attr.``type`` "hidden" ; attr.value (item.id.ToString()) ; attr.name "id"] []
+                                button [attr.``type`` "submit" ; attr.``class`` "btn btn-danger" ; attr.name "delReg"] [text "delete"]
+                                a [attr.href ("/update?id="+item.id.ToString()) ; attr.``class`` "btn btn-success"] [text "update"]
+                            ]
                         ]
                     ]
-                ]
-            ))
+                ))
+                else
+                    h2 [attr.``class`` "text-center mt-2"] [text "You don't have any entries yet! Create one!"]
             Templating.Main ctx EndPoint.Main "Main" [
                 div [attr.``class`` "container"] [
                     div [attr.``class`` "row"] [
